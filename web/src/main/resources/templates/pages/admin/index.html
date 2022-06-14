@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/_adminbase}">
+<body id="page-top">
+	<div class="container-fluid" layout:fragment="content">
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">Thống kê</h1>
+		</div>
+
+		<!-- Content Row -->
+		<div class="row">
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-success shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-success text-uppercase mb-1">
+									Doanh thu ngày</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">
+									<span
+										th:text="${#numbers.formatDecimal(revenueDay, 0, 'COMMA', 0, 'POINT')}"></span>
+									đ
+								</div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-warning shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+									Doanh thu tháng</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">
+									<span
+										th:text="${#numbers.formatDecimal(revenueMonth, 0, 'COMMA', 0, 'POINT')}"></span>
+									đ
+								</div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-secondary shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+									Doanh thu quý</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">
+									<span
+										th:text="${#numbers.formatDecimal(revenueQuarter, 0, 'COMMA', 0, 'POINT')}"></span>
+									đ
+								</div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-primary shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+									Tổng doanh thu</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">
+									<span
+										th:text="${#numbers.formatDecimal(revenue, 0, 'COMMA', 0, 'POINT')}"></span>
+									đ
+								</div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Content Row -->
+
+		<div class="row">
+
+			<!-- Area Chart -->
+			<div class="col-xl-8 col-lg-7">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">Doanh thu</h6>
+						<div class="dropdown no-arrow">
+							<a class="dropdown-toggle" href="#" role="button"
+								id="dropdownMenuLink" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false"> <i
+								class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+							</a>
+							<div
+								class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+								aria-labelledby="dropdownMenuLink">
+								<div class="dropdown-header">Thống kê:</div>
+								<a class="dropdown-item" href="#">Theo ngày</a> <a
+									class="dropdown-item" href="#">Theo tháng</a>
+							</div>
+						</div>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-area">
+							<canvas id="myAreaChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Pie Chart -->
+			<div class="col-xl-4 col-lg-5">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">Thanh toán</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-pie pt-4 pb-2">
+							<canvas id="myPieChart"></canvas>
+						</div>
+						<div class="mt-4 text-center small">
+							<span class="mr-2"> <i class="fas fa-circle text-primary"></i>
+								Sản phẩm trong kho
+							</span> <span class="mr-2"> <i class="fas fa-circle text-success"></i>
+								Sản phẩm bán được
+							</span> <span class="mr-2"> <i class="fas fa-circle text-info"></i>
+								Sản phẩm bán nhiều nhất
+							</span> </span> <span class="mr-2"> <i class="fas fa-circle text-danger"></i>
+								Sản phẩm bán ít nhất
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="container-fluid">
+				<!-- DataTales Example -->
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Bảng chi tiết
+							sản phẩm</h6>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered border" id="dataTable1"
+								width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Tên sản phẩm</th>
+										<th>Số lượng trong kho</th>
+										<th>Số lượng bán được</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th>Id</th>
+										<th>Tên sản phẩm</th>
+										<th>Số lượng trong kho</th>
+										<th>Số lượng bán được</th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<tr th:each="i: ${products}">
+										<td th:text="${i.id}">Thuáº¿ hÃ ng hÃ³a</td>
+										<td th:text="${i.name}">100</td>
+										<td th:text="${i.quantity}">5/9/2021</td>
+										<td th:text="${i.getSold()}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="container-fluid">
+				<!-- DataTales Example -->
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Bảng chi tiết
+							doanh thu</h6>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered border" id="dataTable"
+								width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>Tên khách hàng</th>
+										<th>Tên người nhận</th>
+										<th>Email người nhận</th>
+										<th>SĐT</th>
+										<th>Địa chỉ giao hàng</th>
+										<th>Thuế</th>
+										<th>Số tiền</th>
+										<th>Ngày tạo</th>
+										<th>Tình trạng</th>
+										<th>HTTT</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th>Tên khách hàng</th>
+										<th>Tên người nhận</th>
+										<th>Email người nhận</th>
+										<th>SĐT</th>
+										<th>Địa chỉ giao hàng</th>
+										<th>Thuế</th>
+										<th>Số tiền</th>
+										<th>Ngày tạo</th>
+										<th>Tình trạng</th>
+										<th>HTTT</th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<tr th:each="i: ${bills}">
+										<td th:text="${i.user.firstname + i.user.lastname}">Trá»‹nh
+											CÃ´ng Ä�oÃ n</td>
+										<td th:text="${i.receiver_name}">Trá»‹nh CÃ´ng Ä�oÃ n</td>
+										<td th:text="${i.receiver_email}">congdoan27121999@gmail.com</td>
+										<td th:text="${i.receiver_phone}">0159684357</td>
+										<td
+											th:text="${i.receiver_address+','+ i.receiver_ward +','+ i.receiver_district +','+ i.receiver_province}">ThÃ´n
+											10, XÃ£ NÃ¢m Jang, huyá»‡n Ä�Äƒk Song, Tá»‰nh Ä�Äƒk NÃ´ng</td>
+										<td th:text="${i.tax.type}">Thuáº¿ hÃ ng hÃ³a</td>
+										<td th:text="${i.total}">100</td>
+										<td th:text="${i.create_at}">5/9/2021</td>
+										<td th:text="${i.status}">Chá»� duyá»‡t</td>
+										<td th:text="${i.payment}">COD</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<header class="header" th:fragment="header">
+	<div class="header__top">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6">
+					<div class="header__top__left">
+						<ul>
+							<li><i class="fa fa-envelope"></i> trinhdoan@gmail.com</li>
+							<li><div sec:authorize="isAuthenticated()">
+									Tk: <a th:href="@{/}" sec:authentication="principal.username"></a>
+								</div></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6">
+					<div class="header__top__right">
+						<div class="header__top__right__social">
+							<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
+								class="fa fa-twitter"></i></a> <a href="#"><i
+								class="fa fa-linkedin"></i></a> <a href="#"><i
+								class="fa fa-pinterest-p"></i></a>
+						</div>
+						<div class="header__top__right__language">
+							<img th:src="@{imageUploads/lang.png}" alt="" width="40px">
+							<div>Việt Nam</div>
+							<span class="arrow_carrot-down"></span>
+							<ul>
+								<li><a href="#">Việt Nam</a></li>
+								<li><a href="#">English</a></li>
+							</ul>
+						</div>
+						<div class="header__top__right__auth">
+							<div sec:authorize="isAnonymous()">
+								<a th:href="@{/dang-nhap}"><i class="fa fa-user"></i>Đăng nhập</a>
+							</div>
+							<div sec:authorize="isAuthenticated()">
+								<a th:href="@{/logout}" class="text-center">Đăng xuất</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="header__logo text-center">
+					<a th:href="@{/}"><img th:src="@{imageUploads/logo.png}" alt=""></a>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<nav class="header__menu">
+					<ul>
+						<li class="active"><a th:href="@{/}">Trang chủ</a></li>
+						<li><a th:href="@{/san-pham}">Sản phẩm</a></li>
+						<!-- <li><a href="#">Pages</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="./shop-details.html">Shop Details</a></li>
+                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                                    <li><a href="./checkout.html">Check Out</a></li>
+                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                </ul>
+                            </li> -->
+						<li><a th:href="@{/blog}">Blog</a></li>
+						<li><a th:href="@{/lien-he}">Liên hệ</a></li>
+
+					</ul>
+				</nav>
+			</div>
+			<div class="col-lg-3">
+				<div class="header__cart">
+					<ul>
+						<li><a href="#"><i class="fa fa-heart"></i> <span>0</span></a></li>
+						<li><a th:href="@{/gio-hang}"><i class="fa fa-shopping-bag"></i> <span id="cart_quantity">0</span></a></li>
+					</ul>
+					<div class="header__cart__price">
+						Tổng tiền: <span id="cart_total">0</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="humberger__open">
+			<i class="fa fa-bars"></i>
+		</div>
+	</div>
+</header>

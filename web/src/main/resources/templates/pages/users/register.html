@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>SB Admin 2 - Forgot Password</title>
+
+<!-- Custom fonts for this template-->
+<link th:href="@{asset/admin/vendor/fontawesome-free/css/all.min.css}"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link th:href="@{asset/admin/css/sb-admin-2.min.css}" rel="stylesheet">
+
+</head>
+
+<body class="bg-gradient-primary">
+
+	<div class="container">
+
+		<div class="card o-hidden border-0 shadow-lg my-5">
+			<div class="card-body p-0">
+				<!-- Nested Row within Card Body -->
+				<div class="row">
+					<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+					<div class="col-lg-7">
+						<div class="p-5">
+							<div class="text-center">
+								<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+								<p th:text="${message}"></p>
+							</div>
+							<form class="user needs-validation" th:action="@{/register}"
+								onsubmit="return matchpass()" th:object="${user}" method="post"
+								novalidate enctype="multipart/form-data">
+								<input type="hidden" th:field="*{authorization}"> <input
+									type="hidden" th:field="*{enable}">
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<input type="text" class="form-control form-control-user"
+											id="inputFirstName" placeholder="Họ đệm"
+											th:field="*{firstname}" required="required"> <span
+											class="text-danger small"
+											th:if="${#fields.hasErrors('firstname')}"
+											th:errors="*{firstname}"></span>
+										<div class="invalid-feedback">Không được để trống</div>
+									</div>
+									<div class="col-sm-6">
+										<input type="text" class="form-control form-control-user"
+											id="inputLastName" placeholder="Tên" th:field="*{lastname}"
+											required="required"> <span class="text-danger small"
+											th:if="${#fields.hasErrors('lastname')}"
+											th:errors="*{lastname}"></span>
+										<div class="invalid-feedback">Không được để trống</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<input type="email" class="form-control form-control-user"
+										id="inputEmail" placeholder="Email Address"
+										pattern="^[a-zA-Z][\w]+@([\w]+\.[\w]+|[\w]+\.[\w]+.[\w]+)$"
+										required="required" th:field="*{email}"> <span
+										class="text-danger small"
+										th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+									<div class="invalid-feedback">Email không đúng</div>
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control form-control-user"
+										id="inputPhone" placeholder="Số điện thoại"
+										pattern="^0[1-9]{1}[0-9]{8}$" required="required"
+										th:field="*{phone}"> <span class="text-danger small"
+										th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+									<div class="invalid-feedback">SĐT không đúng</div>
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control form-control-user"
+										id="inputAddress" placeholder="Địa chỉ" th:field="*{address}"
+										required="required"> <span class="text-danger small"
+										th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+									<div class="invalid-feedback">Không được trống</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-4 mb-3 mb-sm-0">
+										<select class="form-control" name="" id="selectProvince"
+											th:field="*{province}" required="required">
+											<option selected disabled value="0">Chọn tỉnh</option>
+											<option th:each="i : ${provinces}" th:value="${i._name}"
+												th:text="${i._name}" th:attr="data-id=${i.id}">
+										</select>
+										<div class="invalid-feedback">Chưa chọn</div>
+									</div>
+									<div class="col-sm-4">
+										<select class="form-control" name="" th:field="*{district}"
+											id="selectDistrict" required="required">
+											<option selected disabled value="0">Chọn huyện</option>
+											<option th:value="${user.district}"
+												th:text="${user.district}">Chọn huyện</option>
+										</select>
+										<div class="invalid-feedback">Chưa chọn</div>
+									</div>
+									<div class="col-sm-4">
+										<select class="form-control" name="" id="selectWard"
+											th:field="*{ward}" required="required">
+											<option selected disabled value="0">Chọn xã</option>
+											<option th:value="${user.ward}" th:text="${user.ward}">Chọn
+												xã</option>
+										</select>
+										<div class="invalid-feedback">Chưa chọn</div>
+									</div>
+								</div>
+								<div class="d-flex">
+									<span class="text-danger small col-4"
+										th:if="${#fields.hasErrors('province')}"
+										th:errors="*{province}"></span> <span
+										class="text-danger small col-4"
+										th:if="${#fields.hasErrors('district')}"
+										th:errors="*{district}"></span> <span
+										class="text-danger small col-4"
+										th:if="${#fields.hasErrors('ward')}" th:errors="*{ward}"></span>
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control form-control-user"
+										id="inputUsername" placeholder="Tài khoản"
+										th:field="*{username}" required="required">
+									<div class="invalid-feedback">Không được trống</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<input type="password" class="form-control form-control-user"
+											id="inputPassword" placeholder="Mật khẩu"
+											th:field="*{password}"
+											pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$"
+											required="required"> <span class="text-danger small"
+											th:if="${#fields.hasErrors('password')}"
+											th:errors="*{password}"></span>
+										<div class="invalid-feedback">Không được trống, có ít
+											nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và độ dài >= 8</div>
+									</div>
+									<div class="col-sm-6">
+										<input type="password" class="form-control form-control-user"
+											id="inputRepeatPassword" placeholder="Nhập lại mật khẩu"
+											pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$"
+											required="required"> <span class="text-danger small"
+											th:if="${#fields.hasErrors('password')}"
+											th:errors="*{password}"></span>
+										<div class="invalid-feedback">Không được trống, có ít
+											nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và độ dài >= 8</div>
+									</div>
+								</div>
+								<button class="btn btn-primary btn-user btn-block">
+									Register Account</button>
+							</form>
+							<hr>
+							<div class="text-center">
+								<a class="small" th:href="@{/dang-nhap}">Already have an
+									account? Login!</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<script th:src="@{asset/admin/vendor/jquery/jquery.min.js}"></script>
+	<script
+		th:src="@{asset/admin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script
+		th:src="@{asset/admin/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script th:src="@{asset/admin/js/sb-admin-2.min.js}"></script>
+	<script>
+		$("#selectProvince")
+				.change(
+						function() {
+							var id = $("#selectProvince").find(
+									'option:selected').data('id');
+							/*alert(id);*/
+							$
+									.ajax({
+										type : "GET",
+										url : "/api/province",
+										success : function(response) {
+											var s = '<option value="0" data-display="Select">Chọn huyện</option>';
+											$
+													.each(
+															response,
+															function(key, value) {
+																if (value.id == id) {
+																	$
+																			.each(
+																					value.district,
+																					function(
+																							key,
+																							value) {
+																						s += '<option value="' + value._name + '" data-id="' + value.id + '">'
+																								+ value._name
+																								+ '</option>';
+																					})
+																}
+															})
+											$("#selectDistrict").html(s);
+										},
+										error : function(e) {
+											alert('Failed!: ' + e);
+										}
+									});
+						});
+
+		$("#selectDistrict")
+				.change(
+						function() {
+							var id = $("#selectDistrict").find(
+									'option:selected').data('id');
+							/*alert(id);*/
+							$
+									.ajax({
+										type : "GET",
+										url : "/api/province",
+										success : function(response) {
+											var s = '<option value="0" data-display="Select">Chọn xã</option>';
+											$
+													.each(
+															response,
+															function(key, value) {
+																$
+																		.each(
+																				value.district,
+																				function(
+																						key_d,
+																						value_d) {
+																					if (value_d.id == id) {
+																						$
+																								.each(
+																										value_d.ward,
+																										function(
+																												key_w,
+																												value_w) {
+																											/*console.log(key_w + " - " + value_w._name);*/
+																											s += '<option value="' + value_w._name + '" data-id="' + value_w.id + '">'
+																													+ value_w._name
+																													+ '</option>';
+																										});
+																					}
+																				});
+
+															});
+											$("#selectWard").html(s);
+										},
+										error : function(e) {
+											alert('Failed!: ' + e);
+										}
+									});
+						});
+
+		function matchpass() {
+			var firstpassword = $("#inputPassword").val();
+			var secondpassword = $("#inputRepeatPassword").val();
+
+			if (firstpassword == secondpassword) {
+				return true;
+			} else {
+				alert("password must be same!");
+				return false;
+			}
+		}
+		(function($) {
+			var forms = document.querySelectorAll('.needs-validation')
+			Array.prototype.slice.call(forms).forEach(function(form) {
+				form.addEventListener('submit', function(event) {
+					if (!form.checkValidity()) {
+						event.preventDefault()
+						event.stopPropagation()
+					}
+
+					form.classList.add('was-validated')
+				}, false)
+			})
+		})(jQuery);
+	</script>
+</body>
+
+</html>

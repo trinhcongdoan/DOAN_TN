@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/_adminbase}">
+<body id="page-top">
+	<div class="container-fluid" layout:fragment="content">
+		<div class="row">
+			<div class="container-fluid">
+				<!-- DataTales Example -->
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary"></h6>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%"
+								cellspacing="0">
+								<thead>
+									<tr>
+										<th>Tên người nhận</th>
+										<th>Email</th>
+										<th>SĐT</th>
+										<th>Địa chỉ</th>
+										<th>Thuế</th>
+										<th>Tổng tiền</th>
+										<th>Tình trạng</th>
+										<th>Ngày đặt</th>
+										<th>Hình thức thanh toán</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th>Tên người nhận</th>
+										<th>Email</th>
+										<th>SĐT</th>
+										<th>Địa chỉ</th>
+										<th>Thuế</th>
+										<th>Tổng tiền</th>
+										<th>Tình trạng</th>
+										<th>Ngày đặt</th>
+										<th>Hình thức thanh toán</th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<tr th:each="i : ${transactions}">
+										<td th:text="${i.receiver_name}"></td>
+										<td th:text="${i.receiver_email}"></td>
+										<td th:text="${i.receiver_phone}"></td>
+										<td
+											th:text="${i.receiver_address+','+ i.receiver_ward +','+ i.receiver_district +','+ i.receiver_province}"></td>
+										<td th:text="${i.tax.type}"></td>
+										<td th:text="${i.total}"></td>
+										<td th:text="${i.create_at}"></td>
+										<td th:text="${i.status}"></td>
+										<td th:text="${i.payment}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

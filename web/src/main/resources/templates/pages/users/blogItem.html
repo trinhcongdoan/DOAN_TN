@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/_userbase}">
+<body id="page-top">
+	<div layout:fragment="content">
+		<!-- Blog Details Hero Begin -->
+		<section class="blog-details-hero set-bg"
+			data-setbg="imageUploads/details-hero.jpg">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="blog__details__hero__text">
+							<h2 th:text="${blogitem.title}"></h2>
+							<ul>
+								<li>Nông sản Việt</li>
+								<li th:text="${blogitem.create_at}">January 14, 2019</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Blog Details Hero End -->
+
+		<!-- Blog Details Section Begin -->
+		<section class="blog-details spad">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 col-md-5">
+						<div class="blog__sidebar">
+							<!-- <div class="blog__sidebar__search">
+								<form action="#">
+									<input type="text" placeholder="Tìm kiếm...">
+									<button type="submit">
+										<span class="icon_search"></span>
+									</button>
+								</form>
+							</div> -->
+
+							<div class="blog__sidebar__item">
+								<h4>Tin nổi bật</h4>
+								<div class="blog__sidebar__recent">
+									<div th:each="i :${blogtop}">
+										<a th:href="@{${'/bai-viet?id=' + i.id}}"
+											class="blog__sidebar__recent__item">
+											<div class="blog__sidebar__recent__item__pic col-4">
+												<img th:src="@{${'/imageUploads/' + i.image}}" alt="">
+											</div>
+											<div class="blog__sidebar__recent__item__text">
+												<h6 th:utext="${i.title}"></h6>
+												<span th:text="${i.create_at}">MAR 05, 2019</span>
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="blog__sidebar__item">
+								<h4>Sản phẩm nổi bật</h4>
+								<div id="owl-carousel" class="owl-carousel owl-theme">
+									<div class="top-featured" th:each="i: ${topfeatured}">
+										<div class="featured__item">
+											<div>
+												<img th:src="@{${'imageUploads/' + i.pimage}}">
+												<ul class="featured__item__pic__hover">
+													<li><a href="#"><i class="fa fa-heart"></i></a></li>
+													<li><a
+														th:href="@{${'/chi-tiet-san-pham?productid=' + i.id + '&categoryid=' + i.category.id}}"><i
+															class="fa fa-eye"></i></a></li>
+													<li><a th:attr="onclick=|addToCart('${i.id}')|"><i
+															class="fa fa-shopping-cart"></i></a></li>
+												</ul>
+											</div>
+											<div class="featured__item__text">
+												<h6>
+													<a
+														th:href="@{${'/chi-tiet-san-pham?productid=' + i.id + '&categoryid=' + i.category.id}}"
+														th:text="${i.name}"></a>
+												</h6>
+												<h5>
+													<span
+														th:text="${#numbers.formatDecimal(i.price, 0, 'COMMA', 0, 'POINT')}"></span>
+													đ
+												</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-8 col-md-7 order-md-1 order-1">
+						<div class="blog__details__text">
+							<p th:utext="${blogitem.content}"></p>
+						</div>
+						<div class="blog__details__content">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="blog__details__author">
+										<div class="blog__details__author__pic">
+											<img th:src="@{imageUploads/logo.png}" alt="">
+										</div>
+										<div class="blog__details__author__text">
+											<h6>Nông sản Việt</h6>
+											<span>Admin</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="blog__details__widget">
+										<ul>
+											<li><span>Tags:</span> <em th:text="${blogitem.slug}"></em></li>
+										</ul>
+										<div class="blog__details__social">
+											<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
+												class="fa fa-twitter"></i></a> <a href="#"><i
+												class="fa fa-google-plus"></i></a> <a href="#"><i
+												class="fa fa-linkedin"></i></a> <a href="#"><i
+												class="fa fa-envelope"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Blog Details Section End -->
+
+		<!-- Related Blog Section Begin -->
+		<section class="related-blog spad">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="section-title related-blog-title">
+							<h2>Bài viết khác</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-6" th:each="i : ${blogRelate}">
+						<div class="blog__item">
+							<div class="blog__item__pic">
+								<img th:src="@{${'/imageUploads/' + i.image}}" alt="">
+							</div>
+							<div class="blog__item__text">
+								<ul>
+									<li><i class="fa fa-calendar-o"></i> <span th:text="${i.create_at}"></span></li>
+									<li><i class="fa fa-comment-o"></i></li>
+								</ul>
+								<h5>
+									<a th:href="@{${'/bai-viet?id=' + i.id}}" th:text="${i.title}"></a>
+								</h5>
+								<p th:utex="${i.description}"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Related Blog Section End -->
+	</div>
+</body>
+</html>

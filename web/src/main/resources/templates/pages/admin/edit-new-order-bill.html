@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/_adminbase}">
+<body id="page-top">
+	<div class="container-fluid" layout:fragment="content">
+		<div class="row">
+			<div class="container-fluid">
+				<!-- DataTales Example -->
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Sửa thông tin
+							cho abc</h6>
+					</div>
+					<div class="card-body">
+						<form class="container">
+							<input type="hidden" value="1">
+							<div class="card-body">Vui lòng điền đầy đủ thông tin, sau
+								đó nhấn thực hiện.</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label for="inputBillName">Người nhận *</label> <input
+										type="text" class="form-control" id="inputBillName"
+										placeholder="Nhập họ và tên người nhận">
+								</div>
+								<div class="form-group">
+									<label for="inputBillEmail">Email *</label> <input type="email"
+										class="form-control" id="inputBillEmail"
+										placeholder="Nhập email người nhận">
+								</div>
+								<div class="form-group">
+									<label for="inputBillPhone">Phone *</label> <input type="text"
+										class="form-control" id="inputBillPhone"
+										placeholder="Nhập số điện thoại người nhận">
+								</div>
+								<div class="form-group">
+									<label for="inputBillAddress">Địa chỉ *</label> <input
+										type="text" class="form-control" id="inputBillAddress"
+										placeholder="Nhập địa chỉ giao hàng">
+								</div>
+								<div class="form-group">
+									<label for="inputBillNote">Ghi chú</label>
+									<textarea class="form-control" id="inputBillNote" cols="30"
+										rows="10" placeholder="Ghi chú"></textarea>
+								</div>
+							</div>
+							<div class="card-body">
+								<a class="btn btn-secondary" th:href="@{/admin-don-hang-moi}"
+									data-dismiss="modal">Hủy bỏ</a>
+								<button class="btn btn-primary" type="submit">Thực hiện</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

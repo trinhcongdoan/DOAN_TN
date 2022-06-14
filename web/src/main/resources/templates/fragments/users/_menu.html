@@ -1,0 +1,38 @@
+<section class="hero hero-normal" th:fragment="menu">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="hero__categories">
+					<div class="hero__categories__all">
+						<i class="fa fa-bars"></i> <span>Danh mục</span>
+					</div>
+					<ul>
+						<li th:each="i : ${categories}"><a th:href="@{${'/san-pham?category=' + i.id}}" th:text="${i.name}"></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-9">
+				<div class="hero__search">
+					<div class="hero__search__form">
+						<form th:action="@{/san-pham}" method="get">
+							<div class="hero__search__categories">
+								Sản phẩm
+							</div>
+							<input type="text" name="nameProduct" placeholder="Tên sản phẩm muốn tìm?">
+							<button type="submit" class="site-btn">Tìm kiếm</button>
+						</form>
+					</div>
+					<div class="hero__search__phone">
+						<div class="hero__search__phone__icon">
+							<i class="fa fa-phone"></i>
+						</div>
+						<div class="hero__search__phone__text">
+							<h5>+84 372110152</h5>
+							<span>Hoạt động 24/7</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

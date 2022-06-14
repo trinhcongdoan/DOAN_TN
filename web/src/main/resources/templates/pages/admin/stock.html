@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/_adminbase}">
+<body id="page-top">
+	<div class="container-fluid" layout:fragment="content">
+		<div class="row">
+			<div class="container-fluid">
+				<!-- DataTales Example -->
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Kho hàng</h6>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%"
+								cellspacing="0">
+								<thead>
+									<tr>
+										<th>Số thứ tự</th>
+										<th>Lô hàng</th>
+										<th>Ngày nhập hàng</th>
+										<th>Ngày sản xuất</th>
+										<th>Ngày hết hạn</th>
+										<th>Giá nhập</th>
+										<th>Giá xuất</th>
+										<th>Số lượng nhập</th>
+										<th>Số lượng bán ra</th>
+										<th>Số lượng đổi trả</th>
+										<th>Số lượng còn lại</th>
+										<th>Edit</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th>Số thứ tự</th>
+										<th>Lô hàng</th>
+										<th>Ngày nhập hàng</th>
+										<th>Ngày sản xuất</th>
+										<th>Ngày hết hạn</th>
+										<th>Giá nhập</th>
+										<th>Giá xuất</th>
+										<th>Số lượng nhập</th>
+										<th>Số lượng bán ra</th>
+										<th>Số lượng đổi trả</th>
+										<th>Số lượng còn lại</th>
+										<th>Edit</th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td>L001</td>
+										<td>1/9/2021</td>
+										<td>1/9/2021</td>
+										<td>10/9/2021</td>
+										<td>24</td>
+										<td>50</td>
+										<td>100</td>
+										<td>30</td>
+										<td>0</td>
+										<td>70</td>
+										<td><a class="btn btn-light" th:href="@{admin-kho-edit}"><i
+												class="far fa-save"></i></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/_adminbase}">
+<body id="page-top">
+	<div class="container-fluid" layout:fragment="content">
+		<div class="row">
+			<div class="container-fluid">
+				<!-- DataTales Example -->
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary"></h6>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%"
+								cellspacing="0">
+								<thead>
+									<tr>
+										<th>Họ đệm</th>
+										<th>Tên</th>
+										<th>Email</th>
+										<th>SĐT</th>
+										<th>Địa chỉ</th>
+										<th>Xã</th>
+										<th>Huyện</th>
+										<th>Tỉnh</th>
+										<th>Quốc tịch</th>
+										<th>Role</th>
+										<th>Provider</th>
+										<th>Xóa</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th>Họ đệm</th>
+										<th>Tên</th>
+										<th>Email</th>
+										<th>SĐT</th>
+										<th>Địa chỉ</th>
+										<th>Xã</th>
+										<th>Huyện</th>
+										<th>Tỉnh</th>
+										<th>Quốc tịch</th>
+										<th>Role</th>
+										<th>Provider</th>
+										<th>Xóa</th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<tr th:each="u: ${listUser}">
+										<td th:text="${u.firstname}">Trá»‹nh CÃ´ng</td>
+										<td th:text="${u.lastname}">Ä�oÃ n</td>
+										<td th:text="${u.email}">congdoan27121999@gmail.com</td>
+										<td th:text="${u.phone}">0159684357</td>
+										<td th:text="${u.address}">ThÃ´n 10</td>
+										<td th:text="${u.ward}">XÃ£ NÃ¢m Jang</td>
+										<td th:text="${u.district}">Ä�Äƒk Song</td>
+										<td th:text="${u.province}">Ä�Äƒk NÃ´ng</td>
+										<td>Việt Nam</td>
+										<td th:text="${u.authorization.role}">NgÆ°á»�i dÃ¹ng</td>
+										<td th:text="${u.provider}"></td>
+										<td><a class="btn btn-light" th:href="@{${'/admin-danh-sach-nguoi-dung-xoa?id=' + u.id}}"><i
+												class="fas fa-trash-alt"></i></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

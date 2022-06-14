@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/_adminbase}">
+<body id="page-top">
+	<div class="container-fluid" layout:fragment="content">
+		<div class="row">
+			<div class="container-fluid">
+				<!-- DataTales Example -->
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary"></h6>
+					</div>
+					<div class="card-body">
+						<form class="container" th:action="@{/admin-san-pham-edit}"
+							th:object="${product}" method="post"
+							enctype="multipart/form-data">
+							<input type="hidden" th:field="*{id}">
+							<input type="hidden" th:field="*{pimage}">
+							<div class="card-body"></div>
+							<div class="card-body">
+								<div class="form-group">
+									<label for="inputProductName">Tên sản phẩm *</label> <input
+										type="text" class="form-control" id="inputProductName"
+										placeholder="Nhập tên sản phẩm" th:field="*{name}"> <span
+										class="text-danger small" th:if="${#fields.hasErrors('name')}"
+										th:errors="*{name}"></span>
+								</div>
+								<div class="form-group">
+									<label for="inputProductPrice">Giá *</label> <input
+										type="number" class="form-control" id="inputProductPrice"
+										th:field="*{price}"> <span class="text-danger small"
+										th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+								</div>
+								<div class="form-group">
+									<label for="inputProductQuantity">Số lượng *</label> <input
+										type="number" min="0" class="form-control"
+										id="inputProductQuantity" th:field="*{quantity}"> <span
+										class="text-danger small"
+										th:if="${#fields.hasErrors('quantity')}"
+										th:errors="*{quantity}"></span>
+								</div>
+								<div class="form-group">
+									<label for="inputProductUnit">Đơn vị *</label> <input
+										type="text" class="form-control" id="inputProductUnit"
+										placeholder="Nhập đơn vị" th:field="*{unit}"> <span
+										class="text-danger small" th:if="${#fields.hasErrors('unit')}"
+										th:errors="*{unit}"></span>
+								</div>
+								<div class="form-group">
+									<label for="inputProductSlug">Slug *</label> <input type="text"
+										class="form-control" id="inputProductSlug"
+										placeholder="Nhập slug" th:field="*{slug}"> <span
+										class="text-danger small" th:if="${#fields.hasErrors('slug')}"
+										th:errors="*{slug}"></span>
+								</div>
+								<div class="form-group">
+									<label for="inputProductMFG">Ngày sản xuất *</label> <input
+										type="date" class="form-control" id="inputProductMFG"
+										th:field="*{product_MFG}"> <span
+										class="text-danger small"
+										th:if="${#fields.hasErrors('product_MFG')}"
+										th:errors="*{product_MFG}"></span>
+								</div>
+								<div class="form-group">
+									<label for="inputProductEXP">Ngày hết hạn *</label> <input
+										type="date" class="form-control" id="inputProductEXP"
+										th:field="*{product_EXP}"> <span
+										class="text-danger small"
+										th:if="${#fields.hasErrors('product_EXP')}"
+										th:errors="*{product_EXP}"></span>
+								</div>
+								<div class="form-group d-flex">
+									<select id="inputProductCategory" class="form-control"
+										th:field="*{category.id}">
+										<option th:each="category : ${categories}"
+											th:value="${category.id}" th:text="${category.name}"
+											th:selected="${category.name == product.category.name}"></option>
+									</select> <select id="inputSupplier" class="form-control"
+										th:field="*{supplier.id}">
+										<option th:each="supplier : ${suppliers}"
+											th:value="${supplier.id}" th:text="${supplier.name}"
+											th:selected="${supplier.name == product.supplier.name}"></option>
+									</select>
+								</div>
+								<div class="form-group d-flex">
+									<span class="text-danger small col-6"
+										th:if="${#fields.hasErrors('category')}"
+										th:errors="*{category}"></span> <span
+										class="text-danger small col-6"
+										th:if="${#fields.hasErrors('supplier')}"
+										th:errors="*{supplier}"></span>
+								</div>
+								<div class="form-group">
+									<label for="inputProductImage">Image *</label> <br> <input
+										type="file" onchange="readURL(this);" class="form-control"
+										id="inputProductImage" name="imageUpload" hidden>
+									<button class="btn btn-primary" id="btnProductImage"
+										onclick="$('#inputProductImage').click();return false;">Chọn
+										hình ảnh</button>
+								</div>
+								<span class="text-danger small"
+									th:if="${#fields.hasErrors('pimage')}" th:errors="*{pimage}"></span>
+								<div class="form-group image">
+									<img id="image" alt="image upload"
+										th:src="@{${'imageUploads/' + product.pimage}}" />
+								</div>
+								<div class="form-group">
+									<label for="inputProductImages">Hình ảnh cho sản phẩm</label> <br>
+									<input type="file" onchange="readURLs(this);"
+										class="form-control" id="inputProductImages"
+										name="imageUploads" multiple hidden>
+									<button class="btn btn-primary" id="btnProductImages"
+										onclick="$('#inputProductImages').click();return false;">Chọn
+										hình ảnh</button>
+								</div>
+								<div class="form-group">
+									<div class="d-flex product_images">
+										<img th:each="i : ${product.product_images}"
+											th:src="@{${'imageUploads/' + i.product_image_name}}"
+											width="100px" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputProductTop">Sản phẩm nổi bật</label> <select
+										id="inputProductTop" class="form-control"
+										th:field="*{topfeatured}">
+										<option th:value="1">Có</option>
+										<option th:value="0">Không</option>
+									</select>
+								</div>
+								<hr>
+								<div class="form-group">
+									<textarea id="editor" rows="5" class="form-control"
+										th:field="*{description}">Mô tả sản phẩm</textarea>
+								</div>
+							</div>
+							<div class="card-body">
+								<a class="btn btn-secondary" th:href="@{/admin-san-pham}">Hủy
+									bỏ</a>
+								<button class="btn btn-primary" type="submit">Thực hiện</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

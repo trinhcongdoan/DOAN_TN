@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/_adminbase}">
+<body id="page-top">
+	<div class="container-fluid" layout:fragment="content">
+		<div class="row">
+			<div class="container-fluid">
+				<!-- DataTales Example -->
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary"></h6>
+					</div>
+					<div class="card-body">
+						<form th:action="@{/admin-nha-cung-cap-edit}"
+							th:object="${supplier}" method="post"
+							enctype="multipart/form-data">
+							<input type="hidden" th:field="*{id}">
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="inputSupplierName">Tên nhà cung cấp *</label> <input
+										type="text" class="form-control" id="inputSupplierName"
+										placeholder="Nhập tên nhà cung cấp" th:field="*{name}"><span
+										class="text-danger small" th:if="${#fields.hasErrors('name')}"
+										th:errors="*{name}"></span>
+								</div>
+								<div class="form-group">
+									<label for="inputSupplierPhone">Số điện thoại *</label> <input
+										type="text" class="form-control" id="inputSupplierPhone"
+										placeholder="Nhập SĐT" th:field="*{phone}"> <span
+										class="text-danger small"
+										th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+								</div>
+								<div class="form-group">
+									<label for="inputSupplierEmail">Email *</label> <input
+										type="text" class="form-control" id="inputSupplierEmail"
+										placeholder="Nhập email" th:field="*{email}"> <span
+										class="text-danger small"
+										th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+								</div>
+								<div class="form-group">
+									<label for="inputSupplierAddress">Địa chỉ *</label> <input
+										type="text" class="form-control" id="inputSupplierAddress"
+										placeholder="Nhập địa chỉ" th:field="*{address}"> <span
+										class="text-danger small"
+										th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+								</div>
+								<div class="form-group">
+									<div class="d-flex">
+										<select class="form-control col-4" name="" id="selectProvince"
+											th:field="*{province}">
+											<option value="">Chọn</option>
+											<option th:each="i : ${provinces}" th:value="${i._name}"
+												th:text="${i._name}"
+												th:selected="${i._name == supplier.province}"
+												th:attr="data-id=${i.id}">
+										</select> <select class="form-control col-4" name=""
+											th:field="*{district}" id="selectDistrict">
+											<option th:value="${supplier.district}"
+												th:text="${supplier.district}">Chọn</option>
+										</select> <select class="form-control col-4" name="" id="selectWard"
+											th:field="*{ward}">
+											<option th:value="${supplier.ward}"
+												th:text="${supplier.ward}">Chọn</option>
+										</select>
+									</div>
+									<div class="d-flex">
+										<span class="text-danger small col-4"
+											th:if="${#fields.hasErrors('province')}"
+											th:errors="*{province}"></span> <span
+											class="text-danger small col-4"
+											th:if="${#fields.hasErrors('district')}"
+											th:errors="*{district}"></span> <span
+											class="text-danger small col-4"
+											th:if="${#fields.hasErrors('ward')}" th:errors="*{ward}"></span>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-secondary" type="button"
+									data-dismiss="modal">Hủy bỏ</button>
+								<button class="btn btn-primary" type="submit">Thực hiện</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

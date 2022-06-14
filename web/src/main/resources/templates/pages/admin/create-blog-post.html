@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/_adminbase}">
+<body id="page-top">
+	<div class="container-fluid" layout:fragment="content">
+		<div class="row">
+			<div class="container-fluid">
+				<!-- DataTales Example -->
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Viết bài</h6>
+					</div>
+					<div class="card-body">
+						<form class="container" th:action="@{/admin-blog-post-them}"
+							th:object="${blogpost}" method="post" enctype="multipart/form-data">
+							<div class="card-body">Vui lòng điền đầy đủ thông tin, sau
+								đó nhấn thực hiện.</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label for="inputPostTitle">Tiêu đề bài viết *</label> <input
+										type="text" class="form-control" id="inputPostTitle"
+										placeholder="Nhập tiêu đề bài viết" th:field="*{blog_food_title}">
+								</div>
+								<div class="form-group">
+									<label for="inputPostSlug">Slug *</label> <input type="text"
+										class="form-control" id="inputPostSlug"
+										placeholder="Nhập slug" th:field="*{blog_food_slug}">
+								</div>
+								<div class="form-group">
+									<label for="inputDiscountProduct">Sản phẩm được sử dụng *</label> <select
+										multiple="multiple" size="10" id="inputDiscountProduct"
+										name="selected[]" th:field="*{product}">
+										<option th:each="i : ${products}" th:value="${i.id}" th:text="${i.product_name}">Option 1</option>
+									</select>
+								</div>
+								<hr>
+								<div class="form-group">
+									<label>Mô tả ngắn *</label>
+									<textarea rows="3" id="descriptionShort" class="form-control" th:field="*{blog_food_description}"></textarea>
+								</div>
+								<hr>
+								<div class="form-group">
+									<label>Nội dung *</label>
+									<textarea rows="10" id="editor" class="form-control" th:field="*{blog_food_content}">Nội dung</textarea>
+								</div>
+							</div>
+							<div class="card-body">
+								<a class="btn btn-secondary" th:href="@{/admin-blog-post}">Hủy
+									bỏ</a>
+								<button class="btn btn-primary" type="submit">Thực hiện</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

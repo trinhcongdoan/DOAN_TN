@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/_userbase}">
+<body id="page-top">
+	<div layout:fragment="content">
+		<!-- Breadcrumb Section Begin -->
+		<section class="breadcrumb-section set-bg"
+			data-setbg="imageUploads/breadcrumb.jpg">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<div class="breadcrumb__text">
+							<h2>Checkout</h2>
+							<div class="breadcrumb__option">
+								<a th:href="@{/}">Home</a> <span>Checkout</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Breadcrumb Section End -->
+
+		<!-- Checkout Section Begin -->
+		<section class="checkout spad">
+			<div class="container">
+				<!-- <div class="row">
+					<div class="col-lg-12">
+						<h6>
+							<span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
+								here</a> to enter your code
+						</h6>
+					</div>
+				</div> -->
+				<div class="checkout__form">
+					<h3 class="text-center text-success" th:text="${message}"></h3>
+					<h3 class="text-center text-success" th:text="${error}"></h3>
+					<h4>Thông tin thanh toán</h4>
+					<form th:action="@{/thanh-toan}" th:object="${bill}" method="post"
+						onsubmit="return checkout()" novalidate class="needs-validation" enctype="multipart/form-data">
+						<div class="row">
+							<div class="col-lg-8 col-md-6">
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="checkout__input">
+											<p>
+												Họ tên<span>*</span>
+											</p>
+											<input type="text" th:field="*{receiver_name}"
+												placeholder="Họ tên người nhận" required> <span
+												class="text-danger small"
+												th:if="${#fields.hasErrors('receiver_name')}"
+												th:errors="*{receiver_name}"></span>
+											<div class="invalid-feedback">Không được để trống</div>
+										</div>
+									</div>
+								</div>
+								<div class="checkout__input">
+									<p>
+										Địa chỉ<span>*</span>
+									</p>
+									<input type="text" placeholder="Địa chỉ (Thôn, Số nhà,...)"
+										class="checkout__input__add" th:field="*{receiver_address}" required="required">
+									<span class="text-danger small"
+										th:if="${#fields.hasErrors('receiver_address')}"
+										th:errors="*{receiver_address}"></span>
+									<div class="invalid-feedback">Không được để trống</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-4 mb-3 mb-sm-0">
+										<select class="form-control" name="" id="selectProvince"
+											th:field="*{receiver_province}" required>
+											<option selected disabled value="0">Chọn tỉnh</option>
+											<option th:each="i : ${provinces}" th:value="${i._name}"
+												th:text="${i._name}" th:attr="data-id=${i.id}">
+										</select>
+										<div class="invalid-feedback">Chưa chọn</div>
+									</div>
+									<div class="col-sm-4">
+										<select class="form-control" name=""
+											th:field="*{receiver_district}" id="selectDistrict" required>
+											<option selected disabled value="0">Chọn huyện</option>
+										</select>
+										<div class="invalid-feedback">Chưa chọn</div>
+									</div>
+									<div class="col-sm-4">
+										<select class="form-control" name="" id="selectWard"
+											th:field="*{receiver_ward}" required>
+											<option selected disabled value="0">Chọn xã</option>
+										</select>
+										<div class="invalid-feedback">Chưa chọn</div>
+									</div>
+								</div>
+								<div class="row d-flex">
+									<span class="text-danger small col-4"
+										th:if="${#fields.hasErrors('receiver_province')}"
+										th:errors="*{receiver_province}"></span> <span
+										class="text-danger small col-4"
+										th:if="${#fields.hasErrors('receiver_district')}"
+										th:errors="*{receiver_district}"></span> <span
+										class="text-danger small col-4"
+										th:if="${#fields.hasErrors('receiver_ward')}"
+										th:errors="*{receiver_ward}"></span>
+								</div>
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="checkout__input">
+											<p>
+												Số điện thoại<span>*</span>
+											</p>
+											<input type="text" th:field="*{receiver_phone}"
+												placeholder="SDDT người nhận"
+												pattern="^0[1-9]{1}[0-9]{8}$" required="required"> <span
+												class="text-danger small"
+												th:if="${#fields.hasErrors('receiver_phone')}"
+												th:errors="*{receiver_phone}"></span>
+											<div class="invalid-feedback">SĐT không đúng</div>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="checkout__input">
+											<p>
+												Email<span>*</span>
+											</p>
+											<input type="email" th:field="*{receiver_email}"
+												placeholder="Email..." pattern="^[a-zA-Z][\w]+@([\w]+\.[\w]+|[\w]+\.[\w]+.[\w]+)$" required="required"> <span
+												class="text-danger small"
+												th:if="${#fields.hasErrors('receiver_email')}"
+												th:errors="*{receiver_email}"></span>
+											<div class="invalid-feedback">Email không đúng</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- <div class="checkout__input__checkbox">
+									<label for="diff-acc"> Ship to a different address? <input
+										type="checkbox" id="diff-acc"> <span class="checkmark"></span>
+									</label>
+								</div> -->
+								<div class="checkout__input">
+									<p>
+										Ghi chú cho người bán<span></span>
+									</p>
+									<textarea rows="5" class="form-control" th:field="*{note}"
+										placeholder="Ghi chú...."></textarea>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<div class="checkout__order">
+									<h4>Giỏ hàng</h4>
+									<div class="checkout__order__products">
+										Sản phẩm <span>Tạm tính</span>
+									</div>
+									<ul>
+										<li th:each="i : ${listcart}"><b
+											th:text="${i.product.name}"></b> <span
+											th:if="${i.product.price_discount > 0}"
+											th:text="${#numbers.formatDecimal(i.product.price_discount * i.quantity, 0, 'COMMA', 0, 'POINT')}"></span>
+											<span th:if="${i.product.price_discount == 0}"
+											th:text="${#numbers.formatDecimal(i.product.price * i.quantity, 0, 'COMMA', 0, 'POINT')}"></span>
+										</li>
+									</ul>
+									<div class="checkout__order__subtotal">
+										Tạm tính <span
+											th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')}"></span>
+									</div>
+									<div class="checkout__order__subtotal">
+										Thuế <span
+											th:text="${#numbers.formatDecimal(tax.fee/100*total, 0, 'COMMA', 0, 'POINT')}"></span>
+									</div>
+									<div class="checkout__order__total">
+										Tổng tiền <span id="last_total"
+											th:text="${#numbers.formatDecimal(tax.fee/100*total + total, 0, 'COMMA', 0, 'POINT')}"></span>
+									</div>
+									<div class="checkout__input__checkbox">
+										<label for="payment"> COD <input type="checkbox"
+											id="payment" name="COD"> <span class="checkmark"></span>
+										</label>
+									</div>
+									<div class="checkout__input__checkbox">
+										<label for="paypal"> Paypal <input type="checkbox"
+											id="paypal" name="paypal"> <span class="checkmark"></span>
+										</label>
+									</div>
+									<button type="submit" class="site-btn">PLACE ORDER</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+		<!-- Checkout Section End -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/_adminbase}">
+<body id="page-top">
+	<div class="container-fluid" layout:fragment="content">
+		<div class="row">
+			<div class="container-fluid">
+				<!-- DataTales Example -->
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Danh sách loại
+							hàng</h6>
+						<div class="text-right">
+							<a class="btn btn-primary" th:href="@{/admin-loai-hang-edit}"><i
+								class="fas fa-plus-circle"></i> Thêm</a>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%"
+								cellspacing="0">
+								<thead>
+									<tr>
+										<th>Tên danh mục</th>
+										<th>Hình ảnh</th>
+										<th>Slug</th>
+										<th>Edit</th>
+										<th>Xóa</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th>Tên danh mục</th>
+										<th>Hình ảnh</th>
+										<th>Slug</th>
+										<th>Edit</th>
+										<th>Xóa</th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<tr th:each="cate : ${categories}">
+										<td th:text="${cate.name}">Hoa</td>
+										<td><img th:src="@{${'/imageUploads/' + cate.image}}"
+											width="100px"></td>
+										<td th:text="${cate.slug}">#slug</td>
+										<td><a class="btn btn-light"
+											th:href="@{${'/admin-loai-hang-edit?id=' + cate.id}}"><i
+												class="far fa-save"></i></a></td>
+										<td><a class="btn btn-light"
+											th:href="@{${'/admin-loai-hang-xoa?id=' + cate.id}}"><i
+												class="fas fa-trash-alt"></i></a></td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
